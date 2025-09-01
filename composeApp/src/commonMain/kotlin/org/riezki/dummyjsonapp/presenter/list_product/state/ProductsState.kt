@@ -9,6 +9,6 @@ import org.riezki.dummyjsonapp.domain.model.ProductsPage
 data class ProductsState(
     val data: ProductsPage = ProductsPage(emptyList()),
     val isLoading: Boolean = false,
-    val nextKey: Int = 1,
-    val previousKey: Int = 1,
+    val skip: Int = 0,
+    val limit: Int = 10,
 )

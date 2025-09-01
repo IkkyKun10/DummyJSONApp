@@ -9,7 +9,7 @@ data class ProductDetail(
     val title: String? = null,
     val description: String? = null,
     val category: String? = null,
-    val price: Double,
+    val price: Double? = null,
     val discountPercentage: Double? = null,
     val rating: Double? = null,
     val stock: Int? = null,

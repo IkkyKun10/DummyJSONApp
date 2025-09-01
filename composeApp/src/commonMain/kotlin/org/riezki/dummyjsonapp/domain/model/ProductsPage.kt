@@ -5,9 +5,10 @@ package org.riezki.dummyjsonapp.domain.model
  */
 
 data class ProductSummary(
-    val id: Int,
-    val title: String,
-    val price: Double,
+    val id: Int? = null,
+    val title: String? = null,
+    val price: Double? = null,
+    val images: List<String>? = null,
 )
 
 data class ProductsPage(

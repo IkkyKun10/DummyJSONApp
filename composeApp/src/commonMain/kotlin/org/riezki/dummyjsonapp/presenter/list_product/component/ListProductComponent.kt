@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil3.compose.SubcomposeAsyncImage
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.riezki.dummyjsonapp.domain.model.ProductSummary
 
@@ -49,29 +51,64 @@ fun ListProductComponent(
                 .background(MaterialTheme.colorScheme.primaryContainer),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "Image",
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+            SubcomposeAsyncImage(
+                model = imageUrl,
+                loading = {
+                    CircularProgressIndicator()
+                },
+                contentDescription = null
             )
+            /*var imageLoadedResultApp by remember {
+                mutableStateOf<Result<Painter>?>(null)
+            }
+
+            val painter = rememberAsyncImagePainter(
+                model = imageUrl,
+                onSuccess = {
+                    imageLoadedResultApp = if (it.painter.intrinsicSize.width > 1 && it.painter.intrinsicSize.height > 1) {
+                        Result.success(it.painter)
+                    } else {
+                        Result.failure(IllegalArgumentException("Image size is too small"))
+                    }
+                },
+                onError = {
+                    it.result.throwable.printStackTrace()
+                    imageLoadedResultApp = Result.failure(it.result.throwable)
+                }
+            )
+
+            Image(
+                painter = painter,
+                contentDescription = product.title
+            )
+
+            when (val result = imageLoadedResultApp) {
+                null -> {
+                    CircularProgressIndicator()
+                }
+                else -> {
+
+                }
+            }*/
         }
 
         // Content
         Box(modifier = Modifier.padding(12.dp)) {
             Column {
                 Text(
-                    text = product.title,
+                    text = product.title ?: "",
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     fontWeight = FontWeight.SemiBold
                 )
                 Text(
-                    text = "ID: ${'$'}{product.id}",
+                    text = "ID: ${product.id}",
                     style = MaterialTheme.typography.labelMedium,
                     color = Color.Red
                 )
                 Text(
-                    text = "${'$'}${'$'}{product.price}",
+                    text = "$ ${product.price}",
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary

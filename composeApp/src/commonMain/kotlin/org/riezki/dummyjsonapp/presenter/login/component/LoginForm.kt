@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -56,7 +57,7 @@ fun LoginForm(
     ) {
         OutlinedTextField(
             value = state.username,
-            onValueChange = { 
+            onValueChange = {
                 onEvent(LoginEvent.OnUsernameChange(it))
             },
             modifier = Modifier.fillMaxWidth(),
@@ -101,13 +102,19 @@ fun LoginForm(
         Spacer(Modifier.height(16.dp))
 
         Button(
-            onClick = { onEvent(LoginEvent.OnLoginClick) },
+            onClick = {
+                onEvent(LoginEvent.OnLoginClick)
+            },
             modifier = Modifier.fillMaxWidth(),
             enabled = canSubmit,
             contentPadding = PaddingValues(vertical = 14.dp),
             shape = MaterialTheme.shapes.small
         ) {
-            Text(if (isLoading) "Loading…" else "Login")
+            if (isLoading) {
+                CircularProgressIndicator()
+            } else {
+                Text("Login")
+            }
         }
     }
 }

@@ -26,6 +26,7 @@ fun ProductSummaryDto.toDomain() : ProductSummary =
         id = this.id,
         title = this.title,
         price = this.price,
+        images = this.images,
     )
 
 fun ProductsPageDto.toDomain() =

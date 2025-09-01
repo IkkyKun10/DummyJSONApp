@@ -8,9 +8,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ProductSummaryDto(
-    val id: Int,
-    val title: String,
-    val price: Double,
+    val id: Int? = null,
+    val title: String? = null,
+    val price: Double? = null,
+    val images: List<String>? = null,
 )
 
 @Serializable

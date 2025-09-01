@@ -44,7 +44,8 @@ fun App() {
         val navController = rememberNavController()
         val mainViewModel = koinViewModel<MainViewModel>()
 
-        val isLoggedIn by mainViewModel.isLoggedIn.collectAsStateWithLifecycle(initialValue = false)
+//        val isLoggedIn by mainViewModel.isLoggedIn.collectAsStateWithLifecycle(initialValue = false)
+        val isLoggedIn = runBlocking { mainViewModel.isLoggedIn.first() }
 
         val backstack by navController.currentBackStackEntryAsState()
         val showBottomBar = isLoggedIn && when (backstack?.destination?.route) {

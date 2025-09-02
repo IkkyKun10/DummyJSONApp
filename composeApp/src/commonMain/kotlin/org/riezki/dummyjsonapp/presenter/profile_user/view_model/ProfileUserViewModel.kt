@@ -11,6 +11,7 @@ import org.riezki.dummyjsonapp.core.domain.onError
 import org.riezki.dummyjsonapp.core.domain.onSuccess
 import org.riezki.dummyjsonapp.domain.PreferenceRepository
 import org.riezki.dummyjsonapp.domain.RemoteDataSource
+import org.riezki.dummyjsonapp.presenter.event.AppEvent
 import org.riezki.dummyjsonapp.presenter.profile_user.state.ProfileUserState
 
 /**
@@ -23,6 +24,16 @@ class ProfileUserViewModel(
 ) : ViewModel() {
     private val _state = MutableStateFlow(ProfileUserState())
     val state = _state.asStateFlow()
+
+    fun onEvent(event: AppEvent.ProfileEvent) {
+        when (event) {
+            is AppEvent.ProfileEvent.OnLogoutClick -> {
+                viewModelScope.launch {
+                    preferenceRepository.logout()
+                }
+            }
+        }
+    }
 
     private suspend fun loadCurrentProfile() {
         _state.update { it.copy(isLoading = true) }

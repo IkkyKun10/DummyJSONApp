@@ -14,6 +14,10 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import dummyjsonapp.composeapp.generated.resources.Res
+import dummyjsonapp.composeapp.generated.resources.products
+import dummyjsonapp.composeapp.generated.resources.profile
+import org.jetbrains.compose.resources.stringResource
 import org.riezki.dummyjsonapp.app.navigation.Route
 
 private data class BottomItem(
@@ -27,8 +31,8 @@ fun DummyBottomBar(
     navController: NavHostController,
 ) {
     val items = listOf(
-        BottomItem(Route.Products, "Products", Icons.Rounded.Home),
-        BottomItem(Route.Profile, "Profile", Icons.Rounded.Person),
+        BottomItem(Route.Products, stringResource(Res.string.products), Icons.Rounded.Home),
+        BottomItem(Route.Profile, stringResource(Res.string.profile), Icons.Rounded.Person),
     )
 
     val backStackEntry by navController.currentBackStackEntryAsState()

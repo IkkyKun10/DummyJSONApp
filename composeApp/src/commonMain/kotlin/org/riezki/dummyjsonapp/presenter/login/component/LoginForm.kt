@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -31,6 +31,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import dummyjsonapp.composeapp.generated.resources.Res
+import dummyjsonapp.composeapp.generated.resources.login
+import dummyjsonapp.composeapp.generated.resources.password
+import dummyjsonapp.composeapp.generated.resources.username
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.riezki.dummyjsonapp.presenter.event.AppEvent.LoginEvent
 import org.riezki.dummyjsonapp.presenter.login.state.LoginUiState
@@ -61,7 +66,7 @@ fun LoginForm(
                 onEvent(LoginEvent.OnUsernameChange(it))
             },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Username") },
+            label = { Text(stringResource(Res.string.username)) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next
@@ -77,7 +82,7 @@ fun LoginForm(
                 onEvent(LoginEvent.OnPasswordChange(it))
             },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Password") },
+            label = { Text(stringResource(Res.string.password)) },
             singleLine = true,
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
@@ -111,9 +116,14 @@ fun LoginForm(
             shape = MaterialTheme.shapes.small
         ) {
             if (isLoading) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(32.dp)
+                )
             } else {
-                Text("Login")
+                Text(
+                    text = stringResource(Res.string.login)
+                )
             }
         }
     }

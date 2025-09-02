@@ -18,6 +18,6 @@ sealed interface AppEvent {
     }
 
     sealed class ProfileEvent: AppEvent {
-
+        data object OnLogoutClick: ProfileEvent()
     }
 }

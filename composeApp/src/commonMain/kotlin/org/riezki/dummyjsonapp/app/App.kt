@@ -16,8 +16,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.compose.viewmodel.koinViewModel
@@ -25,6 +23,7 @@ import org.riezki.dummyjsonapp.app.components.DummyBottomBar
 import org.riezki.dummyjsonapp.app.navigation.Route
 import org.riezki.dummyjsonapp.di.appModule
 import org.riezki.dummyjsonapp.di.platformModule
+import org.riezki.dummyjsonapp.presenter.event.AppEvent
 import org.riezki.dummyjsonapp.presenter.list_product.screen.ListProductsScreen
 import org.riezki.dummyjsonapp.presenter.list_product.view_model.ListProductViewModel
 import org.riezki.dummyjsonapp.presenter.login.screen.LoginScreen
@@ -44,8 +43,8 @@ fun App() {
         val navController = rememberNavController()
         val mainViewModel = koinViewModel<MainViewModel>()
 
-//        val isLoggedIn by mainViewModel.isLoggedIn.collectAsStateWithLifecycle(initialValue = false)
-        val isLoggedIn = runBlocking { mainViewModel.isLoggedIn.first() }
+        val isLoggedIn by mainViewModel.isLoggedIn.collectAsStateWithLifecycle()
+//        val isLoggedIn = runBlocking { mainViewModel.isLoggedIn.first() }
 
         val backstack by navController.currentBackStackEntryAsState()
         val showBottomBar = isLoggedIn && when (backstack?.destination?.route) {
@@ -141,7 +140,22 @@ fun App() {
 
                     ProfileScreen(
                         modifier = Modifier.fillMaxSize(),
-                        state = state
+                        state = state,
+                        onEvent = {
+                            viewModel.onEvent(it)
+                            when {
+                                it is AppEvent.ProfileEvent.OnLogoutClick -> {
+                                    navController.navigate(Route.Login) {
+                                        popUpTo(Route.Products) {
+                                            inclusive = true
+                                        }
+                                        launchSingleTop = true
+                                    }
+                                }
+
+                                else -> Unit
+                            }
+                        }
                     )
                 }
             }

@@ -30,6 +30,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import dummyjsonapp.composeapp.generated.resources.Res
+import dummyjsonapp.composeapp.generated.resources.description
+import dummyjsonapp.composeapp.generated.resources.gallery
+import dummyjsonapp.composeapp.generated.resources.information
+import dummyjsonapp.composeapp.generated.resources.tags
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 import org.riezki.dummyjsonapp.domain.model.ProductDetail
@@ -129,11 +135,16 @@ private fun ProductDetailScreen(
                         AssistChip(
                             onClick = {},
                             label = { Text("Stock: ${product.stock}") },
-                            colors = AssistChipDefaults.assistChipColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
+                            colors = AssistChipDefaults.assistChipColors(
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer
+                            )
                         )
                     }
                     if (product.rating != null) {
-                        AssistChip(onClick = {}, label = { Text("⭐ ${product.rating}") })
+                        AssistChip(
+                            onClick = {},
+                            label = { Text("⭐ ${product.rating}") }
+                        )
                     }
                 }
 
@@ -160,7 +171,7 @@ private fun ProductDetailScreen(
                 // Description
                 if (!product.description.isNullOrEmpty()) {
                     Text(
-                        text = "Description",
+                        text = stringResource(Res.string.description),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -175,7 +186,7 @@ private fun ProductDetailScreen(
                 // Tags
                 if (!product.tags.isNullOrEmpty()) {
                     Text(
-                        text = "Tags",
+                        text = stringResource(Res.string.tags),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -194,7 +205,7 @@ private fun ProductDetailScreen(
                 // Gallery
                 if (!product.images.isNullOrEmpty()) {
                     Text(
-                        text = "Gallery",
+                        text = stringResource(Res.string.gallery),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -213,16 +224,17 @@ private fun ProductDetailScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                // Additional info
                 val availability = product.availabilityStatus ?: ""
                 if (availability.isNotEmpty() || product.warrantyInformation != null || product.shippingInformation != null) {
                     Text(
-                        text = "Information",
+                        text = stringResource(Res.string.information),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
                     Spacer(Modifier.height(6.dp))
-                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
                         if (availability.isNotEmpty()) Text("Status: $availability", style = MaterialTheme.typography.bodyMedium)
                         product.warrantyInformation?.let { Text("Warranty: $it", style = MaterialTheme.typography.bodyMedium) }
                         product.shippingInformation?.let { Text("Shipping: $it", style = MaterialTheme.typography.bodyMedium) }

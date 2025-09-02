@@ -1,7 +1,6 @@
 package org.riezki.dummyjsonapp.presenter.login.screen
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -11,6 +10,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import dummyjsonapp.composeapp.generated.resources.Res
+import dummyjsonapp.composeapp.generated.resources.login_page
+import org.jetbrains.compose.resources.stringResource
 import org.riezki.dummyjsonapp.presenter.event.AppEvent.LoginEvent
 import org.riezki.dummyjsonapp.presenter.login.component.LoginForm
 import org.riezki.dummyjsonapp.presenter.login.state.LoginUiState
@@ -31,7 +33,7 @@ fun LoginScreen(
         modifier = modifier
     ) {
         Text(
-            text = "Login Page",
+            text = stringResource(Res.string.login_page),
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(16.dp)

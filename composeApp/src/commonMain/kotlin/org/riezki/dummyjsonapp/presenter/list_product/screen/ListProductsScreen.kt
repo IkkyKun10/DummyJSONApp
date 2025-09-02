@@ -22,6 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import dummyjsonapp.composeapp.generated.resources.Res
+import dummyjsonapp.composeapp.generated.resources.next
+import dummyjsonapp.composeapp.generated.resources.previous
+import org.jetbrains.compose.resources.stringResource
 import org.riezki.dummyjsonapp.domain.model.ProductSummary
 import org.riezki.dummyjsonapp.presenter.event.AppEvent.ProductsEvent
 import org.riezki.dummyjsonapp.presenter.list_product.component.ListProductComponent
@@ -74,7 +78,7 @@ fun ListProductsScreen(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowLeft,
-                        contentDescription = "Previous",
+                        contentDescription = stringResource(Res.string.previous),
                         modifier = Modifier
                             .size(50.dp)
                     )
@@ -89,7 +93,7 @@ fun ListProductsScreen(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowRight,
-                        contentDescription = "Next",
+                        contentDescription = stringResource(Res.string.next),
                         modifier = Modifier
                             .size(50.dp)
                     )

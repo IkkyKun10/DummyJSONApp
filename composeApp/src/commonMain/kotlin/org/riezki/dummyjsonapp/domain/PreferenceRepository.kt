@@ -14,4 +14,5 @@ interface PreferenceRepository {
     suspend fun saveAccessToken(token: String)
     suspend fun saveRefreshToken(refreshToken: String)
     suspend fun saveLoggedIn(isLoggedIn: Boolean)
+    suspend fun logout()
 }

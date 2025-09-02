@@ -49,6 +49,10 @@ class PreferenceRepositoryImpl(
         )
     }
 
+    override suspend fun logout() {
+        flowSettings.clear()
+    }
+
     companion object {
         const val IS_LOGGEDIN = "is_logged_in"
         const val ACCESS_TOKEN = "access_token"
